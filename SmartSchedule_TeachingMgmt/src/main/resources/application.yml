@@ -1,0 +1,69 @@
+server:
+  port: 8093
+  servlet:
+    context-path: /api
+
+spring:
+  rabbitmq:
+    host: 192.168.146.132
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+    listener:
+      simple:
+        retry:
+          enabled: true
+          initial-interval: 1000
+          max-attempts: 3
+          max-interval: 10000
+          multiplier: 2.0
+  application:
+    name: SmartSchedule_TeachingMgmt
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/smartschedule_teachingmgmt?allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+    druid:
+      min-idle: 5
+      max-active: 10
+      max-wait: 3000
+  mvc:
+    static-path-pattern: /uploads/**
+  web:
+    resources:
+      static-locations: file:${E:/AAA-project/SmartSchedule_TeachingMgmt/SmartSchedule_TeachingMgmt/imgFiles}
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password:
+
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: auto
+  configuration:
+    map-underscore-to-camel-case: false
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+logging:
+  level:
+    root: info
+    com.crytalwjh.smartschedule_teachingmgmt: debug
+    com.crytalwjh.smartschedule_teachingmgmt.interceptors: debug
+    com.crytalwjh.smartschedule_teachingmgmt.controller: debug
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/application.log
+    max-size: 10MB
+    max-history: 30
+
+avatar:
+  save:
+    path: E:/AAA-project/SmartSchedule_TeachingMgmt/SmartSchedule_TeachingMgmt/imgFiles/  # 文件上传路径
+    allowed-types: image/jpeg,image/png  # 允许的文件类型
+    max-size: 2097152  # 最大文件大小（2MB）
